@@ -322,15 +322,15 @@ def encode_and_save_batch_one_frame(
         # Target latents for this section (ground truth)
         target_latents = latents[b, :, -1:]  # C, 1, H, W
 
-        print(f"Saving cache for item {item.item_key} at {item.latent_cache_path}. no_post: {item.fp_1f_no_post}")
-        print(f"  Clean latent indices: {clean_latent_indices}, latent index: {latent_index}")
-        print(f"  Clean latents: {clean_latents.shape}, target latents: {target_latents.shape}")
-        print(f"  Clean latents 2x indices: {clean_latent_2x_indices}, clean latents 4x indices: {clean_latent_4x_indices}")
-        print(
+        logger.debug(f"Saving cache for item {item.item_key} at {item.latent_cache_path}. no_post: {item.fp_1f_no_post}")
+        logger.debug(f"  Clean latent indices: {clean_latent_indices}, latent index: {latent_index}")
+        logger.debug(f"  Clean latents: {clean_latents.shape}, target latents: {target_latents.shape}")
+        logger.debug(f"  Clean latents 2x indices: {clean_latent_2x_indices}, clean latents 4x indices: {clean_latent_4x_indices}")
+        logger.debug(
             f"  Clean latents 2x: {clean_latents_2x.shape if clean_latents_2x is not None else 'None'}, "
             f"Clean latents 4x: {clean_latents_4x.shape if clean_latents_4x is not None else 'None'}"
         )
-        print(f"  Image embeddings: {image_embeddings[b].shape}")
+        logger.debug(f"  Image embeddings: {image_embeddings[b].shape}")
 
         # save cache (file path is inside item.latent_cache_path pattern), remove batch dim
         save_latent_cache_framepack(

@@ -69,7 +69,7 @@ def encode_and_save_batch(ae: flux_models.AutoEncoder, batch: List[ItemInfo]):
         target_latent = latents[b]  # C, H, W. Target latents for this image (ground truth)
         control_latent = control_latents[b]  # C, H, W
 
-        print(
+        logger.debug(
             f"Saving cache for item {item.item_key} at {item.latent_cache_path}. control latents shape: {control_latent.shape}, target latents shape: {target_latent.shape}"
         )
 

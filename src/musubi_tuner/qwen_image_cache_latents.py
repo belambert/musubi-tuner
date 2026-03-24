@@ -100,7 +100,7 @@ def encode_and_save_batch(vae: qwen_image_autoencoder_kl.AutoencoderKLQwenImage,
         def decode(lat):
             with torch.no_grad():
                 pixels = vae.decode_to_pixels(lat)
-            print(pixels.min(), pixels.max(), pixels.shape)
+            logger.debug(f"{pixels.min()}, {pixels.max()}, {pixels.shape}")
             pixels = pixels.to(torch.float32).cpu()
             pixels = (pixels * 255).clamp(0, 255).to(torch.uint8)  # convert to uint8
             pixels = pixels[0].permute(1, 2, 0)  # C, H, W -> H, W, C
@@ -122,7 +122,7 @@ def encode_and_save_batch(vae: qwen_image_autoencoder_kl.AutoencoderKLQwenImage,
     for b, item in enumerate(batch):
         target_latent = latents[b]  # C, L, H, W. Target latents for this image (ground truth)
         control_latent = control_latents[b] if control_latents is not None else None  # list of (C, 1, H, W) or None
-        print(
+        logger.debug(
             f"Saving cache for item {item.item_key} at {item.latent_cache_path}, target latents shape: {target_latent.shape}, "
             f"control latents shape: {[cl.shape for cl in control_latent] if control_latent is not None else None}"
         )

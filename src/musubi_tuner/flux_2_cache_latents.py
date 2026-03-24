@@ -64,7 +64,7 @@ def encode_and_save_batch(ae: flux2_models.AutoEncoder, batch: List[ItemInfo], a
         target_latent = latents[b]  # C, H, W. Target latents for this image (ground truth)
         control_latent = control_latents[b] if control_latents is not None else None  # list of (C, H, W) tensors or None
 
-        print(
+        logger.debug(
             f"Saving cache for item {item.item_key} at {item.latent_cache_path}, target latents shape: {target_latent.shape}, "
             f"control latents shape: {[cl.shape for cl in control_latent] if control_latent is not None else None}"
         )
