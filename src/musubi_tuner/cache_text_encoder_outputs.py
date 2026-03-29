@@ -95,7 +95,8 @@ def process_text_encoder_batches(
         else:
             batches = dataset.retrieve_latent_cache_batches(num_workers)  # return captions and images/videos
 
-        for batch in tqdm(batches):
+        total = dataset.get_total_image_count() if hasattr(dataset, "get_total_image_count") else None
+        for batch in tqdm(batches, total=total):
             # update cache files (it's ok if we update it multiple times)
             if requires_content:
                 batch = batch[1]  # batch is (key, items), so use items
